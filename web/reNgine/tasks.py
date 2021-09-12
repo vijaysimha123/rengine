@@ -346,7 +346,7 @@ def subdomain_scan(task, domain, yaml_configuration, results_dir, activity_id, o
 
     # check for all the tools and add them into string
     # if tool selected is all then make string, no need for loop
-    if 1:
+    if 'all' in yaml_configuration[SUBDOMAIN_DISCOVERY][USES_TOOLS]:
         tools = 'amass-active amass-passive assetfinder sublist3r subfinder oneforall'
     else:
         tools = ' '.join(
@@ -361,8 +361,8 @@ def subdomain_scan(task, domain, yaml_configuration, results_dir, activity_id, o
         if _threads > 0:
             threads = _threads
 
-    if 1:
-        if 1:
+    if 'amass' in tools:
+        if 'amass-passive' in tools:
             amass_command = 'amass enum -passive -d {} -o {}/from_amass.txt'.format(
                     domain.name, results_dir)
 
@@ -372,7 +372,7 @@ def subdomain_scan(task, domain, yaml_configuration, results_dir, activity_id, o
             logging.info(amass_command)
             os.system(amass_command)
 
-        if 1:
+        if 'amass-active' in tools:
             amass_command = 'amass enum -active -d {} -o {}/from_amass_active.txt'.format(
                     domain.name, results_dir)
 
